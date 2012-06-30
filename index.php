@@ -12,29 +12,15 @@ else
    $name="";
 }
  
-if(isset($_GET['email']))
-{
-   $email=$_GET['email'];
-}
-else
-{
-   $email="";
-}
- 
-if(isset($_GET['twitter_username']))
-{
-   $twitter=$_GET['twitter_username'];
-}
-else
-{
-   $twitter="Twitter account not found.";
-}
-$name = "mandaville";
+//$name = "mandaville";  Testing
 $qry_str = "?all=0&SIMPLE=" . $name ;
 
 // get DOM from URL or file
 $html = file_get_html('http://metadir.andrew.cmu.edu/ldap/search'.$qry_str);
+
 $i=0;
+
+//TODO: Implement a better selector
 foreach($html->find('td[valign=top]') as $e){
   $i++;
   if($i == 4){
