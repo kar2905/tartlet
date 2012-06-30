@@ -42,18 +42,7 @@ foreach($html->find('td[valign=top]') as $e){
     break;
   }
 }
-/*
-$ch = curl_init();
 
-// Set query data here with the URL
-curl_setopt($ch, CURLOPT_URL, 'http://metadir.andrew.cmu.edu/ldap/search' . $qry_str); 
-
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_TIMEOUT, '3');
-$content = trim(curl_exec($ch));
-curl_close($ch);
-var_dump($content);
-*/ 
 //Our response
 $parameters = array();
 $parameters['html'] = "<p>Department.</p><p>".htmlentities($dept)."</p>";
