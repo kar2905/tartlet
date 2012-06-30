@@ -5,6 +5,7 @@ Rapplet for CMU (Tartans)
 ------
 This queries the CMU directory with the name and parses the result to return the Department affiliation. 
 
+Hosted at: https://www.autobudder.com/tartlet/
 
 References
 ----
