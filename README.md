@@ -10,6 +10,8 @@ Rapplet URL: https://www.autobudder.com/tartlet/
 Install:
 https://rapportive.com/raplets?preset=https://autobudder.com/tartlet
 
+Working: http://www.diigo.com/item/image/2uw5d/1pbu
+
 References
 ----
 * Rapplet - http://code.rapportive.com/raplet-docs/
