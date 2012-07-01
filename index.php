@@ -32,7 +32,7 @@ foreach($html->find('td[valign=top]') as $e){
 //Our response
 $parameters = array();
 if(isset($dept) && $dept != ""){
-  $parameters['html'] = "<p>Department: </p><p>".htmlentities($dept)."</p>";
+  $parameters['html'] = "<p>".htmlentities($dept)." @ CMU</p>";
   $parameters['css'] = "p{margin:0; padding:0; color:#444; font-size: 13px; }";
   $parameters['status'] = 200;
 }
