@@ -8,7 +8,7 @@ This queries the CMU directory with the name and parses the result to return the
 Rapplet URL: https://www.autobudder.com/tartlet/
 
 Install:
-Follow the instructions at http://code.rapportive.com/raplet-docs/ listed under "Add the Raplet to Rapportive". 
+https://rapportive.com/raplets?preset=https://autobudder.com/tartlet
 
 References
 ----
