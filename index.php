@@ -22,11 +22,11 @@ $i=0;
 
 //TODO: Implement a better selector
 foreach($html->find('td[valign=top]') as $e){
-  $i++;
-  if($i == 4){
-    $dept = $e->innertext;
+  if(strpos($e->innertext,"Department(s) with which this person is affiliated") !== false){
+    $dept = $e->parent()->next_sibling()->next_sibling()->last_child()->innertext;
     break;
   }
+
 }
 
 //Our response
