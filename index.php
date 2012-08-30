@@ -5,13 +5,13 @@
 //echo "<h3>LDAP query test</h3>";
 //echo "Connecting ...";
 $ds=ldap_connect("ldaps://ldap.cmu.edu");  // must be a valid LDAP server!
-//echo "connect result is " . $ds . "<br />";
+echo "connect result is " . $ds . "<br />";
 
 if ($ds) { 
   //  echo "Binding ..."; 
     $r=ldap_bind($ds);     // this is an "anonymous" bind, typically
                            // read-only access
-    //echo "Bind result is " . $r . "<br />";
+    echo "Bind result is " . $r . "<br />";
 
     //echo "Searching for (sn=S*) ...";
     // Search surname entry
