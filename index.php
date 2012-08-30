@@ -6,15 +6,15 @@ $callback = $_GET['callback'];
 //echo "<h3>LDAP query test</h3>";
 //echo "Connecting ...";
 ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
-$ds=ldap_connect("ldaps://ldap.cmu.edu:636");  // must be a valid LDAP server!
-echo "connect result is " . $ds . "<br />";
+$ds=ldap_connect("ldap.cmu.edu");  // must be a valid LDAP server!
+//echo "connect result is " . $ds . "<br />";
 
 if ($ds) { 
   //  echo "Binding ..."; 
     $r=ldap_bind($ds);     // this is an "anonymous" bind, typically
                            // read-only access
-    echo "Bind result is " . $r . "<br />";
-    echo ldap_error($ds);
+    //echo "Bind result is " . $r . "<br />";
+    //echo ldap_error($ds);
     //echo "Searching for (sn=S*) ...";
     // Search surname entry
     $sr=ldap_search($ds, "dc=cmu, dc=edu", "(cn=*Kartik Mandaville*)");  
