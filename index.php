@@ -1,34 +1,44 @@
 <?php
-include('simple_html_dom.php');
-//Parameters in the request from Rapportive to our Raplet
-$callback = $_GET['callback'];
- 
-if(isset($_GET['name']))
-{
-   $name=$_GET['name'];
+// basic sequence with LDAP is connect, bind, search, interpret search
+// result, close connection
+
+//echo "<h3>LDAP query test</h3>";
+//echo "Connecting ...";
+$ds=ldap_connect("ldaps://ldap.cmu.edu");  // must be a valid LDAP server!
+//echo "connect result is " . $ds . "<br />";
+
+if ($ds) { 
+  //  echo "Binding ..."; 
+    $r=ldap_bind($ds);     // this is an "anonymous" bind, typically
+                           // read-only access
+    //echo "Bind result is " . $r . "<br />";
+
+    //echo "Searching for (sn=S*) ...";
+    // Search surname entry
+    $sr=ldap_search($ds, "dc=cmu, dc=edu", "(cn=*Kartik Mandaville*)");  
+    //echo "Search result is " . $sr . "<br />";
+
+    //echo "Number of entries returned is " . ldap_count_entries($ds, $sr) . "<br />";
+
+    //echo "Getting entries ...<p>";
+    $info = ldap_get_entries($ds, $sr);
+    //echo "Data for " . $info["count"] . " items returned:<p>";
+
+    for ($i=0; $i<$info["count"]; $i++) {
+        //echo "dn is: " . $info[$i]["dn"] . "<br />";
+        //echo "first cn entry is: " . $info[$i]["cn"][0] . "<br />";
+        //echo "first email entry is: " . $info[$i]["mail"][0] . "<br /><hr />";
+        $dept =  $info[$i]["cmudepartment"][0] ;
+        //print_r($info[$i]);
+        
+    }
+
+    //echo "Closing connection";
+    ldap_close($ds);
+
+} else {
+    $dept = "<h4>Unable to connect to LDAP server</h4>";
 }
-else
-{
-   $name="";
-}
- 
-//$name = "mandaville";  Testing
-$qry_str = "?all=0&SIMPLE=" . urlencode($name);
-
-// get DOM from URL or file
-$html = file_get_html('http://metadir.andrew.cmu.edu/ldap/search'.$qry_str);
-
-$i=0;
-
-//TODO: Implement a better selector
-foreach($html->find('td[valign=top]') as $e){
-  if(strpos($e->innertext,"Department(s) with which this person is affiliated") !== false){
-    $dept = $e->parent()->next_sibling()->next_sibling()->last_child()->innertext;
-    break;
-  }
-
-}
-
 //Our response
 $parameters = array();
 if(isset($dept) && $dept != ""){
@@ -41,10 +51,8 @@ else{
   $parameters['css'] = "";  
   $parameters['status'] = 404;
 }
-
  
 //We encode our response as JSON and prepend the callback to it
 $object = $callback."(".json_encode($parameters).")";
 echo $object;
 
-?>
