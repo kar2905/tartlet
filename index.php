@@ -2,7 +2,14 @@
 // basic sequence with LDAP is connect, bind, search, interpret search
 // result, close connection
 $callback = $_GET['callback'];
-
+if(isset($_GET['name']))
+{
+   $name=$_GET['name'];
+}
+else
+{
+   $name="";
+}
 //echo "<h3>LDAP query test</h3>";
 //echo "Connecting ...";
 ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
@@ -17,7 +24,7 @@ if ($ds) {
     //echo ldap_error($ds);
     //echo "Searching for (sn=S*) ...";
     // Search surname entry
-    $sr=ldap_search($ds, "dc=cmu, dc=edu", "(cn=*Kartik Mandaville*)");  
+    $sr=ldap_search($ds, "dc=cmu, dc=edu", "(cn=*$name*)");  
     //echo "Search result is " . $sr . "<br />";
 
     //echo "Number of entries returned is " . ldap_count_entries($ds, $sr) . "<br />";
