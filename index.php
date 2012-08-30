@@ -4,6 +4,7 @@
 
 //echo "<h3>LDAP query test</h3>";
 //echo "Connecting ...";
+ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
 $ds=ldap_connect("ldaps://ldap.cmu.edu");  // must be a valid LDAP server!
 echo "connect result is " . $ds . "<br />";
 
