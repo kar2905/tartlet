@@ -10,12 +10,19 @@ else
 {
    $name="";
 }
+if(isset($_GET['email']))
+{
+   $email=$_GET['email'];
+}
+else
+{
+   $email="";
+}
 //echo "<h3>LDAP query test</h3>";
 //echo "Connecting ...";
 ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
 $ds=ldap_connect("ldap.cmu.edu");  // must be a valid LDAP server!
 //echo "connect result is " . $ds . "<br />";
-
 if ($ds) { 
   //  echo "Binding ..."; 
     $r=ldap_bind($ds);     // this is an "anonymous" bind, typically
@@ -24,7 +31,17 @@ if ($ds) {
     //echo ldap_error($ds);
     //echo "Searching for (sn=S*) ...";
     // Search surname entry
-    $sr=ldap_search($ds, "dc=cmu, dc=edu", "(cn=*$name*)");  
+    if(strpos($email,"andrew.cmu.edu") !== FALSE ){
+      $userid = explode("@",$email);
+      $userid = $userid[0];
+      $sr=ldap_search($ds, "dc=cmu, dc=edu", "(uid=$userid)");  
+    }
+    else if(strpos($email,"cmu.edu") !==FALSE ){
+      $sr=ldap_search($ds, "dc=cmu, dc=edu", "(mail=$email)");
+    }
+    else{
+          $sr=ldap_search($ds, "dc=cmu, dc=edu", "(cn=*$name*)");  
+        }
     //echo "Search result is " . $sr . "<br />";
 
     //echo "Number of entries returned is " . ldap_count_entries($ds, $sr) . "<br />";
